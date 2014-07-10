@@ -1,0 +1,88 @@
+<div class="container">
+	<div class="col-md-3">
+		<img ng-src="http://i.imgur.com/{{course.pic}}" width="200px" height="300px" />
+	</div>
+	<div class="col-md-4">
+		<div>
+			<a href='' ng-click="showCourseDetails(course)" class="h4 bold"></a>
+
+      <h3><b>{{course.title | uppercase}}</b></h3>
+		</div>
+		<div>
+			<p>
+				<span ng-show="!showCompleteDescription">{{course.description | limitTo : maxLength}}</span>
+				<span ng-show="showCompleteDescription">{{course.description}}</span>
+				<span ng-show="course.description.length >maxLength && !showCompleteDescription">...</span>
+				<a href='' ng-show="course.description.length >
+					maxLength && !showCompleteDescription" ng-click="showCompleteDescription = true" >more
+				</a>
+			</p>
+      <div>Avg. ratings : {{avg_rating |number:2}}/10
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="10" style="width: {{avg_rating*10}}%">
+          </div>
+          </div>
+
+      </div> 
+			
+		</div>
+	</div>
+	<div class="col-md-1">
+		<div ng-bind="course.price | currency "></div>
+	</div>
+	<div class="col-md-1">
+		<a ng-href='#/review/{{course.objectId}}' class="btn btn-success">Add review
+		</a>
+	</div>
+
+</div>
+        <div class="container col-md-13" >
+          
+            <div class="col-md-2">
+              <h4><b>UserName</b></h4>
+            </div>
+            <div class="col-md-4 ">
+              <h4><b>Comment</b></h4>
+            </div>
+            <div class="col-md-2 ">
+            <h4><b>Rating</b></h4>
+          </div>
+          <div class="col-md-3 ">
+            <h4><b>Date</b></h4>
+          </div>
+          <div class="col-md-1 ">
+            <h4><b>Likes</b></h4>
+          </div>
+        </div>
+<div class="container" >
+    <div class="row-well">
+      <div class="col-md-13">
+      	
+        <div class="row"
+        style="border-bottom: 1px solid;border-color:#777777;padding-top: 20px;padding-bottom: 40px;" 
+        ng-repeat="review in reviews|orderBy:'- createdAt'" >
+            
+            <div class="col-md-2">
+              <div ng-bind="review.username"></div>
+            </div>
+            <div class="col-md-4 ">
+              <div ng-bind="review.comment"></div>
+            </div>
+            <div class="col-md-2 ">
+            <div ng-bind="review.rating">
+            </div>
+
+          </div>
+          <div class="col-md-3 ">
+            <div ng-bind="review.createdAt| date:'MM/dd/yyyy @ h:mma'"></div>
+          </div>
+          <div class="col-md-1">
+            <div ng-bind="review.likes"></div>
+            <i ng-click="review.likes=review.likes+1;update(review)" class="fa fa-thumbs-up"></i>
+          </div>
+        </div>
+       
+      </div>
+
+    </div>
+  </div>

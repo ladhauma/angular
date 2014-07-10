@@ -1,0 +1,18 @@
+
+  
+    
+      <div  class="col-md-3" ng-repeat="course in courses | filter :  { name: searchText} | orderBy : orderTerm | limitTo: maxResults" >
+          <div class="thumbnail">
+          <div>
+            <img ng-src="{{course.pic}}" width="200px" /> 
+          </div>
+          <div>
+            <div>
+              <a href='#/details' class="h2">{{course.name}}</a>
+            </div>
+           
+          </div>
+          </div>
+
+        </div>
+  

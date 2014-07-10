@@ -1,0 +1,66 @@
+  <div class="container" >
+    <div class="row">
+      <div class="col-md-*">
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" placeholder="search courses by name.."  class="form-control"   ng-model="searchText"/>  
+          </div>
+          <div class="col-md-3 ">
+            <select class="form-control" ng-model="orderTerm">
+              <option value="title" >Name of course</option>
+              <option value="price">Price of course</option>
+              <option value="rating">Rating of course</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select class="form-control" ng-disabled="orderTerm!='rating'" ng-model="ascdsc">
+              <option value="true">high to low</option>
+              <option value="false">low to high</option>
+            </select>
+          </div>
+        </div>
+        <br/> 
+
+        <div class="row" 
+        style="border-bottom: 1px solid;border-color:#777777;padding-top: 20px;padding-bottom: 40px;" 
+        ng-repeat="course in courses | filter :  { title: searchText} | orderBy : orderTerm:ascdsc | limitTo: maxResults" >
+          <div class="col-md-3">
+            <img ng-src="http://i.imgur.com/{{course.pic}}" width="200px" />  
+          </div>
+          <div class="col-md-4">
+            <div>
+              <a ng-href='#/details/{{course.objectId}}'  class="h4"><b>{{course.title | uppercase}}</b></a>
+            </div>
+            <div>
+              <p>
+                <span ng-show="!showCompleteDescription">{{course.description | limitTo : maxLength}}</span>
+                <span ng-show="showCompleteDescription">{{course.description}}</span>
+                <span ng-show="course.description.length >maxLength && !showCompleteDescription">...</span>
+                <a href='' ng-show="course.description.length >
+                  maxLength && !showCompleteDescription" ng-click="showCompleteDescription = true" >more
+                </a>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div ng-bind="course.price | currency  "></div>
+          </div>
+          <div class='col-md-3'>Avg. ratings : {{course.rating |number:2}}/10
+          <my-progress-bar> 
+          </my-progress-bar>
+
+          <!--<div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="10" style="width: {{course.rating*10}}%">
+          </div>
+          </div> -->
+
+
+          </div> 
+          
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
